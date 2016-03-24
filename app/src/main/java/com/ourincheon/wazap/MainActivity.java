@@ -63,14 +63,14 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         });
 
 
-        final TextView spinnerT =(TextView)findViewById(R.id.spinnerT);
+  /*      final TextView spinnerT =(TextView)findViewById(R.id.spinnerT);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //spinnerT.setText(""+parent.getItemAtPosition(position));기
 
-                /****fragment로 값보내****/
+                *//****fragment로 값보내****//*
                 FragmentPage fragment = new FragmentPage();
                 Bundle bundle = new Bundle();
                 bundle.putInt("category",position);
@@ -80,14 +80,6 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-     /*   final TextView spinnerT =(TextView)findViewById(R.id.spinnerT);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemClickListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                spinnerT.setText(""+parent.getItemAtPosition(position));
             }
         });
 */
@@ -211,7 +203,9 @@ public class MainActivity extends AppCompatActivity implements OnNavigationItemS
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
             return true;
         }
 

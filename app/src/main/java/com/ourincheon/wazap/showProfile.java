@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.ourincheon.wazap.Retrofit.regUser;
@@ -56,11 +57,12 @@ public class showProfile extends AppCompatActivity {
         sIntro = (TextView) findViewById(R.id.pIntro);
         sExp = (TextView) findViewById(R.id.pExp);
 
+
         profileImg = (ImageView)findViewById(R.id.pPro);
         thumbnail = intent.getExtras().getString("thumbnail");
-        ThumbnailImage thumb = new ThumbnailImage(thumbnail, profileImg);
-        thumb.execute();
 
+
+        Glide.with(this).load(thumbnail).error(R.drawable.icon_user).override(150,150).crossFade().into(profileImg);
 
         loadPage(user_id);
 
@@ -69,14 +71,16 @@ public class showProfile extends AppCompatActivity {
             pButton.setText("수락하기");
         else
             pButton.setText("수락취소");
+
         pButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag = 1;
+                if(flag==0)
+                    flag = 1;
+                else
+                    flag = 0;
 
-                Toast.makeText(showProfile.this, String.valueOf(flag), Toast.LENGTH_SHORT).show();
                 changeMem();
-
             }
         });
     }
@@ -170,6 +174,12 @@ public class showProfile extends AppCompatActivity {
                         }
                         sIntro.setText(jsonArr.getJSONObject(0).getString("introduce"));
                         sExp.setText(jsonArr.getJSONObject(0).getString("exp"));
+
+                        if(flag == 0)
+                            pButton.setText("수락하기");
+                        else
+                            pButton.setText("수락취소");
+
                     }catch (JSONException e)
                     {};
 
@@ -188,9 +198,10 @@ public class showProfile extends AppCompatActivity {
         });
     }
 
+
+    // 뒤로가기 버튼 터치시 -> 변경사항 ApplierList에 반영
     @Override
     public void onBackPressed() {
-        //Toast.makeText(this, "Back button pressed.", Toast.LENGTH_SHORT).show();
         ((ApplierList)(ApplierList.mContext)).onResume();
         super.onBackPressed();
     }

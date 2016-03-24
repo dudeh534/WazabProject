@@ -8,6 +8,7 @@ import com.ourincheon.wazap.Retrofit.Appliers;
 import com.ourincheon.wazap.Retrofit.ContestInfo;
 import com.ourincheon.wazap.Retrofit.Contests;
 import com.ourincheon.wazap.Retrofit.UserInfo;
+import com.ourincheon.wazap.Retrofit.WeeklyList;
 import com.ourincheon.wazap.Retrofit.regMsg;
 import com.ourincheon.wazap.Retrofit.regUser;
 import com.ourincheon.wazap.Retrofit.reqContest;
@@ -173,6 +174,36 @@ public interface WazapService {
             @Path("contest_id") String contest_id,
             @Header("access-token") String access_token
     );
+
+    // 주간목록 받아오기
+    @GET("weekly_list")
+    Call<WeeklyList> getWeeklylist(
+            @Header("access-token") String access_token,
+            @Query("amount") int amount
+    );
+
+    // 타이틀명 검색하기
+    @GET("search")
+    Call<Contests> getSearchlist(
+            @Header("access-token") String access_token,
+            @Query("search") String search,
+           // @Query("start_id") int start_id,
+            @Query("amount") int amount
+    );
+
+    // 시구 검색하기
+    @GET("locate")
+    Call<LinkedTreeMap> getLocatelist(
+            @Header("access-token") String access_token
+    );
+
+    // 군구 검색하기
+    @GET("locate/{state_name}")
+    Call<LinkedTreeMap> getLocatebasedlist(
+            @Header("access-token") String access_token,
+            @Path("state_name") String state_name
+    );
 }
+
 
 

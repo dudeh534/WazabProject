@@ -143,6 +143,7 @@
                 android:layout_height="20dp"
                 android:text="상세프로필"
                 android:id="@+id/jPro"
+                android:textColor="#FF0000"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="23.33dp" />
         </LinearLayout>
@@ -350,11 +351,36 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_below="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.ourincheon.wazap.NotoTextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="팀원리스트"
+            android:layout_gravity="left|center_horizontal" />
+           <HorizontalScrollView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:fadeScrollbars="false">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/imgLayout"
+                   android:orientation="horizontal">
+               </LinearLayout>
+           </HorizontalScrollView>
+
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/linearLayout7"
+        android:layout_below="@+id/linearLayout9"
         android:id="@+id/lineardivider1"
         android:background="#c9c9c9"/>
 

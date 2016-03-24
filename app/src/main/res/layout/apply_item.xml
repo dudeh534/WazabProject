@@ -101,11 +101,11 @@
             <Button
                 android:focusable="false"
                 android:layout_width="58dp"
-                android:layout_height="wrap_content"
+                android:layout_height="22dp"
+                android:background="@drawable/cancelbtn"
                 android:id="@+id/detail"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:text="신청취소"
                 android:layout_marginRight="15.67dp"
                 android:layout_marginTop="5dp" />
         </LinearLayout>

@@ -78,7 +78,7 @@ public class ApplierList extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-    //    loadApplier(num, access_token);
+        loadApplier(num, access_token);
     }
 
     void loadApplier(String num, String access_token)
@@ -109,15 +109,16 @@ public class ApplierList extends AppCompatActivity {
                         JSONArray jsonArr = jsonRes.getJSONArray("data");
                         count = jsonArr.length();
                         System.out.println(count);
+                        mAdapter = new ListViewAdapter(mContext);
                         for (int i = 0; i < count; i++) {
-
                             mAdapter.addItem(jsonArr.getJSONObject(i).getString("profile_img"),
                                     jsonArr.getJSONObject(i).getString("username"),
                                     jsonArr.getJSONObject(i).getString("app_users_id"),
                                     Integer.parseInt(jsonArr.getJSONObject(i).getString("applies_id")),
                                             Integer.parseInt(jsonArr.getJSONObject(i).getString("is_check")));
                         }
-                        mAdapter.notifyDataSetChanged();
+                        mListView.setAdapter(mAdapter);
+
                     } catch (JSONException e) {
                     }
 
@@ -179,8 +180,7 @@ public class ApplierList extends AppCompatActivity {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            //String[] parts = period.split("T");
-            //addInfo.setPeriod(parts[0]);
+
             addInfo.setUsername(name);
             addInfo.setApp_users_id(id);
             addInfo.setApplies_id(applies);
@@ -224,30 +224,24 @@ public class ApplierList extends AppCompatActivity {
 
             holder.aName.setText(mData.getUsername());
 
-            //holder.Cate.setText(mData.getCategories());
-
-            //holder.Member.setText("확정인원 " + mData.getMembers() + "명");
 
           if (mData.getProfile_img() != null) {
-              holder.aImage.setVisibility(View.VISIBLE);
               Glide.with(mContext).load(mData.getProfile_img()).error(R.drawable.icon_user).override(150,150).crossFade().into(holder.aImage);
-            //  ThumbnailImage thumb = new ThumbnailImage(mData.getProfile_img(), holder.aImage);
-            //  thumb.execute();
           }else{
-              holder.aImage.setVisibility(View.VISIBLE);
               holder.aImage.setImageDrawable(getResources().getDrawable(R.drawable.icon_user));
           }
 
 
+            // 지원자의 수락여부에 맞게 표시
             if(mData.getIs_check()==1)
-                holder.aABtn.setBackgroundResource(R.drawable.require_info_button);
+                holder.aABtn.setBackgroundResource(R.drawable.accept_button_on);
             else
-                holder.aABtn.setBackgroundResource(R.drawable.require_info_disablebutton);
+                holder.aABtn.setBackgroundResource(R.drawable.accept_button_off);
 
+            // 프로필 보기페이지로 이동
             holder.aPBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                //    Toast.makeText(context, mData.getApp_users_id(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ApplierList.this, showProfile.class);
                     intent.putExtra("thumbnail", mData.getProfile_img());
                     intent.putExtra("user_id", mData.getApp_users_id());

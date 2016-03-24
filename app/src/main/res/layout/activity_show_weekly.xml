@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ourincheon.wazap.showWeeklyActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textSize="25dp"
+        android:id="@+id/sTitle"/>
+
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="dday"
+        android:textSize="25dp"
+        android:id="@+id/sDday"
+        android:layout_marginLeft="317dp"
+        android:layout_marginStart="317dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="category"
+        android:textSize="20dp"
+        android:id="@+id/sCategory"
+        android:layout_below="@+id/sTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="host"
+        android:textSize="20dp"
+        android:id="@+id/sHost"
+        android:layout_below="@+id/sCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="period"
+        android:textSize="20dp"
+        android:id="@+id/sPeriod"
+        android:layout_below="@+id/sHost"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="target"
+        android:textSize="20dp"
+        android:id="@+id/sTarget"
+        android:layout_below="@+id/sPeriod"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="benefit"
+        android:textSize="20dp"
+        android:id="@+id/sBenefit"
+        android:layout_below="@+id/sTarget"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="total"
+        android:textSize="20dp"
+        android:id="@+id/sTotal"
+        android:layout_below="@+id/sBenefit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="first"
+        android:textSize="20dp"
+        android:id="@+id/sPrize"
+        android:layout_below="@+id/sTotal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.ourincheon.wazap.NotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="homepage"
+        android:textSize="20dp"
+        android:id="@+id/sHomepage"
+        android:layout_below="@+id/sPrize"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sImg"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/sDday"
+        android:layout_alignEnd="@+id/sDday" />
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

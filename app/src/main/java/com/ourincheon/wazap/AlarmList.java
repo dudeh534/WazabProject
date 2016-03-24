@@ -1,6 +1,7 @@
 package com.ourincheon.wazap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +49,7 @@ public class AlarmList extends AppCompatActivity {
     ArrayList<AlarmData> alarm_list;
     int count;
     AlarmData con;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,15 @@ public class AlarmList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 AlarmData mData = mAdapter.mListData.get(position);
                 Toast.makeText(AlarmList.this, mData.msg_url, Toast.LENGTH_SHORT).show();
+                String temp = mData.msg_url.substring(0,14);
+
+                System.out.println(temp);
+                if(temp.equals("/contests/list"))
+                    intent = new Intent(AlarmList.this, ContestList.class);
+                else if(temp.equals("/contests/appl"))
+                    intent = new Intent(AlarmList.this, ApplyList.class);
+                startActivity(intent);
+
             }
         });
 

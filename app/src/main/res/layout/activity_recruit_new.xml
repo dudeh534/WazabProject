@@ -6,7 +6,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:background="#FFF0F0F0">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView1">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +95,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="420dp"
         android:layout_below="@+id/lineardivider"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -190,51 +199,62 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="130dp"
                 android:layout_marginTop="5dp">
 
-                <com.ourincheon.wazap.NotoTextView
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="광고/아이디어/마케팅"
                     android:id="@+id/checkAd"
                     android:checked="false"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:button="@drawable/detail_disable_marketing"/>
 
-                <com.ourincheon.wazap.NotoTextView
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="디자인"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/checkDe"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:button="@drawable/detail_disable_design"/>
 
-                <com.ourincheon.wazap.NotoTextView
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="사진/영상/UCC"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/checkUc"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:button="@drawable/detail_disable_video"/>
 
-                <com.ourincheon.wazap.NotoTextView
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="게임/소프트웨어"
                     android:id="@+id/checkIt"
-                    android:textSize="13dp" />
+                    android:layout_marginTop="5dp"
+                    android:textSize="13dp"
+                    android:button="@drawable/detail_disable_it"/>
 
-                <com.ourincheon.wazap.NotoTextView
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="해외"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/checkFo"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:button="@drawable/detail_disable_idea"/>
 
-                <com.ourincheon.wazap.NotoTextView
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="기타"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/checkEtc"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:button="@drawable/detail_disable_scenario"/>
 
             </LinearLayout>
 
@@ -256,16 +276,16 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:hint="날짜를 선택하세요"
                 android:id="@+id/reDate"
                 android:textSize="14dp" />
 
-            <EditText
+            <Button
                 android:hint="지역을 선택하세요"
                 android:id="@+id/reLoc"
                 android:textSize="14dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_width="match_parent"
                 />
 
@@ -333,6 +353,7 @@
 
     </RelativeLayout>
 
+
     <com.ourincheon.wazap.NotoTextView
         android:textColor="#ffffff"
         android:layout_width="match_parent"
@@ -345,6 +366,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
-

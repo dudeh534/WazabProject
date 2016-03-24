@@ -61,7 +61,7 @@ public class Recycler_item {
         return id;
     }
 
-    Recycler_item(String title, String text, String name, int recruit,int member,int clip,String category, String loc, String day) //, int id, String writer)
+    Recycler_item(String title, String text, String name, int recruit,int member,int clip,String category, String loc, String day, int id, String writer)
      {
         this.title=title;
         this.text=text;
@@ -72,7 +72,7 @@ public class Recycler_item {
         this.category = category;
         this.loc = loc;
         this.day = day;
-    //    this.id = id;
-    //    this.writer = writer;
+        this.id = id;
+        this.writer = writer;
     }
 }

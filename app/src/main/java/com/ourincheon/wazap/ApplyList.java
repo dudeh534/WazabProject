@@ -41,6 +41,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ApplyList extends AppCompatActivity {
+    Context context;
     ScrollView scrollView;
     private ListView mListView = null;
     private ListView mListView2 = null;
@@ -60,12 +61,12 @@ public class ApplyList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_list);
 
+        context = this;
+
         mListView = (ListView) findViewById(R.id.listView);
         mListView2 = (ListView)findViewById(R.id.listView1);
 
         scrollView = (ScrollView) findViewById(R.id.scrollView1);
-        //ListView listView1 = (ListView) findViewById(R.id.listView1);
-        //not_listAdapter = new Not_ListAdapter(this, R.layout.not_require_item);
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         access_token = pref.getString("access_token", "");
@@ -155,7 +156,7 @@ public class ApplyList extends AppCompatActivity {
                     if (result) {
                         Log.d("저장 결과: ", msg);
                         Toast.makeText(getApplicationContext(), "신청 취소되었습니다.", Toast.LENGTH_LONG).show();
-
+                        onResume();
                     } else {
                         Log.d("저장 실패: ", msg);
                         Toast.makeText(getApplicationContext(), "신청취소 안됬습니다.다시 시도해주세요.", Toast.LENGTH_LONG).show();
@@ -174,6 +175,12 @@ public class ApplyList extends AppCompatActivity {
                 Log.e("Error", t.getMessage());
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadApply(access_token);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -223,11 +230,10 @@ public class ApplyList extends AppCompatActivity {
                         count = jsonArr.length();
                         cont_id = new String[count];
                         apply_id = new String[count];
-                        System.out.println(count);
+
+                        mAdapter = new ListViewAdapter(context);
+                        not_listAdapter = new Not_ListViewAdapter(context);
                         for (int i = 0; i < count; i++) {
-                            System.out.println(Integer.parseInt(jsonArr.getJSONObject(i).getString("recruitment")));
-                            System.out.println(jsonArr.getJSONObject(i).getString("recruitment"));
-                            System.out.println(jsonArr.getJSONObject(i).getString("is_finish"));
                             if(Integer.parseInt(jsonArr.getJSONObject(i).getString("is_finish")) == 0) {
                                 cont_id[i] = jsonArr.getJSONObject(i).getString("contests_id");
                                 apply_id[i] = jsonArr.getJSONObject(i).getString("applies_id");
@@ -474,44 +480,4 @@ public class ApplyList extends AppCompatActivity {
         }
     }
 
-
-/*
-    public class not_ListAdapter extends ArrayAdapter<String> {
-        private final Activity context;
-        TextView dday, title, cate, man;
-        ImageView small;
-        Button bt;
-        Contests contest;
-        ArrayList<ContestData> cont_list;
-        int count;
-
-        public not_ListAdapter(Activity context, int resource) {
-            super(context, resource);
-            this.context = context;
-            //list = new ArrayList<Contests>();
-            SharedPreferences pref = context.getSharedPreferences("pref", context.MODE_PRIVATE);
-            String access_token = pref.getString("access_token", "");
-            //loadPage(access_token);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.not_require_item, null, true);
-            dday = (TextView) rowView.findViewById(R.id.dday);
-            title = (TextView) rowView.findViewById(R.id.title);
-            cate = (TextView) rowView.findViewById(R.id.cate);
-            man = (TextView) rowView.findViewById(R.id.man);
-            bt = (Button) rowView.findViewById(R.id.require);
-
-            title.setText("[서울] 한화생명 보험 아이디어 공모전");
-            cate.setText("영상/ucc/사진");
-            man.setText("모집인원 5명");
-            return rowView;
-        }
-
-        @Override
-        public int getCount() {
-            return cont_list.size();
-        }
-    }*/
 }

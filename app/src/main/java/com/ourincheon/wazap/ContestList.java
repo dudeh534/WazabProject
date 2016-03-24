@@ -37,7 +37,9 @@ import retrofit2.Retrofit;
 public class ContestList extends AppCompatActivity {
     ScrollView scrollView;
     private ListView mListView = null;
+    private ListView mListView2 = null;
     private ListViewAdapter mAdapter = null;
+    private Not_ListViewAdapter  not_listAdapter = null;
     Contests contests;
     ArrayList<ContestData> contest_list;
     int count;
@@ -49,6 +51,7 @@ public class ContestList extends AppCompatActivity {
         setContentView(R.layout.activity_contest_list);
 
         mListView = (ListView) findViewById(R.id.contestlistView);
+        mListView2 = (ListView)findViewById(R.id.listView1);
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         String access_token = pref.getString("access_token", "");
@@ -79,7 +82,10 @@ public class ContestList extends AppCompatActivity {
         });
 
         mAdapter = new ListViewAdapter(this);
+        not_listAdapter = new Not_ListViewAdapter(this);
+
         mListView.setAdapter(mAdapter);
+        mListView2.setAdapter(not_listAdapter);
     }
 
     void loadContest(String user_id, String access_token)
@@ -111,14 +117,28 @@ public class ContestList extends AppCompatActivity {
                         System.out.println(count);
                         for (int i = 0; i < count; i++) {
 
-                            mAdapter.addItem(jsonArr.getJSONObject(i).getString("title"),
-                                    jsonArr.getJSONObject(i).getString("period"),
-                                    Integer.parseInt(jsonArr.getJSONObject(i).getString("appliers")),
-                                    Integer.parseInt(jsonArr.getJSONObject(i).getString("recruitment")),
-                                    Integer.parseInt(jsonArr.getJSONObject(i).getString("contests_id")),
-                                    Integer.parseInt(jsonArr.getJSONObject(i).getString("members")));
+                            if(Integer.parseInt(jsonArr.getJSONObject(i).getString("is_finish")) == 0) {
+                                mAdapter.addItem(jsonArr.getJSONObject(i).getString("title"),
+                                        jsonArr.getJSONObject(i).getString("period"),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("appliers")),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("recruitment")),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("contests_id")),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("members")));
+                            }else
+                            {
+                                not_listAdapter.addItem(jsonArr.getJSONObject(i).getString("title"),
+                                        jsonArr.getJSONObject(i).getString("period"),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("appliers")),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("recruitment")),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("contests_id")),
+                                        Integer.parseInt(jsonArr.getJSONObject(i).getString("members")));
+                            }
                         }
-                        mAdapter.notifyDataSetChanged();
+                        mListView.setAdapter(mAdapter);
+                        mListView2.setAdapter(not_listAdapter);
+
+                        setListViewHeightBasedOnChildren(mListView);
+                        setListViewHeightBasedOnChildren(mListView2);
                     } catch (JSONException e) {
                     }
 
@@ -137,7 +157,24 @@ public class ContestList extends AppCompatActivity {
         });
     }
 
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
 
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
 
     private class ViewHolder {
 
@@ -250,5 +287,94 @@ public class ContestList extends AppCompatActivity {
             return convertView;
         }
     }
+
+
+    private class Not_ListViewAdapter extends BaseAdapter {
+        private Context mContext = null;
+        private ArrayList<ContestData> mListData = new ArrayList<ContestData>();
+
+        public Not_ListViewAdapter(Context mContext) {
+            super();
+            this.mContext = mContext;
+        }
+
+        @Override
+        public int getCount() {
+            return mListData.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mListData.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public void addItem(String title, String period, int apply, int recruit, int id, int member){
+            ContestData addInfo = null;
+            addInfo = new ContestData();
+            String[] parts = period.split("T");
+            addInfo.setPeriod(parts[0]);
+            addInfo.setAppliers(apply);
+            addInfo.setRecruitment(recruit);
+            addInfo.setContests_id(id);
+            addInfo.setMembers(member);
+            addInfo.setTitle(title);
+
+            mListData.add(addInfo);
+
+        }
+
+        public void remove(int position){
+            mListData.remove(position);
+            dataChange();
+        }
+
+        public void dataChange(){
+            mAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.not_require_item, null);
+
+                holder.Dday = (TextView) convertView.findViewById(R.id.dday);
+                holder.Title = (TextView) convertView.findViewById(R.id.title);
+                holder.Cate = (TextView) convertView.findViewById(R.id.cate);
+                holder.Man = (TextView) convertView.findViewById(R.id.man);
+                holder.Member = (TextView) convertView.findViewById(R.id.member);
+
+                convertView.setTag(holder);
+            }else{
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            ContestData mData = mListData.get(position);
+
+            // System.out.println(mData.getAppliers());
+
+            Dday day = new Dday();
+            // holder.Dday.setText("D "+day.dday(mData.getPeriod()));
+
+            holder.Title.setText(mData.getTitle());
+
+            holder.Cate.setText("모집인원 " + String.valueOf(mData.getRecruitment()) + "명");
+
+            holder.Man.setText("신청인원 "+mData.getAppliers() + "명");
+
+            holder.Member.setText("확정인원 " + mData.getMembers() + "명");
+
+            return convertView;
+        }
+    }
+
 }
 

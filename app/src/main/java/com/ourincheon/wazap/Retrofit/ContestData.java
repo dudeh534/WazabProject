@@ -1,13 +1,18 @@
 package com.ourincheon.wazap.Retrofit;
 
+import com.facebook.FacebookRequestError;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sue on 2016-02-24.
  */
 
 public class ContestData  implements Serializable {
+    final String[] Category_Arr = {"논문/학술","디자인/UCC","IT/개발","게임","마케팅/광고","기타"};
+    int[] category_idx = new int[6];
     int applies_id;
     int contests_id;
     int recruitment;
@@ -22,12 +27,49 @@ public class ContestData  implements Serializable {
     String cover;
     String positions;
     String cont_locate;
+    String kakao_id;
+    String profile_img;
+    int is_apply;
     int members;
     int appliers;
     int clips;
     int views;
     int is_finish;
     int is_clip;
+
+    List<MemberList> member_list = new ArrayList<MemberList>();
+
+    public MemberList getMemberList(int i)
+    {
+        return member_list.get(i);
+    }
+
+    public int getMembersize()
+    {return  member_list.size();}
+
+    public String getKakao_id() {
+        return kakao_id;
+    }
+
+    public void setKakao_id(String kakao_id) {
+        this.kakao_id = kakao_id;
+    }
+
+    public String getProfile_img() {
+        return profile_img;
+    }
+
+    public void setProfile_img(String profile_img) {
+        this.profile_img = profile_img;
+    }
+
+    public int getIs_apply() {
+        return is_apply;
+    }
+
+    public void setIs_apply(int is_apply) {
+        this.is_apply = is_apply;
+    }
 
     public ContestData(){}
     public int getIs_finish() {
@@ -114,6 +156,7 @@ public class ContestData  implements Serializable {
         this.username = username;
     }
 
+    /*
     public String getCategories() {
         return categories;
     }
@@ -122,8 +165,12 @@ public class ContestData  implements Serializable {
         this.categories = categories;
     }
 
+*/
 
- /*
+    public String getCates() {
+        return categories;
+    }
+
      public String getCategories() {
      String str="";
         String[] temp;
@@ -133,16 +180,15 @@ public class ContestData  implements Serializable {
              str += temp[i]+" ";
 
         return str;
-
-         return categories;
      }
 
     public void setCategories(String categories) {
             this.categories = categories;
         }
 
+    /*
 
- /*   public String getCateStr()
+    public String getCateStr()
     {
         String str="";
         for(int i=0; i<categories.size(); i++) {
@@ -180,14 +226,6 @@ public class ContestData  implements Serializable {
         for(int j=0; j<6; j++)
             System.out.print(category_idx[j]+" ");
         return str;
-    }
-
-    public ArrayList<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(ArrayList<String> categories) {
-        this.categories = categories;
     }
 */
     public String getPeriod() {
@@ -251,4 +289,7 @@ public class ContestData  implements Serializable {
 
 
 }
+
+
+
 

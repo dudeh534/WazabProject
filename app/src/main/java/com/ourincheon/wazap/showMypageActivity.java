@@ -119,10 +119,13 @@ public class showMypageActivity extends AppCompatActivity {
                         sMajor.setText(jsonArr.getJSONObject(0).getString("major"));
                         sUniv.setText(jsonArr.getJSONObject(0).getString("school"));
                         sLoc.setText(jsonArr.getJSONObject(0).getString("locate"));
-                        sKakao.setText(jsonArr.getJSONObject(0).getString("kakao_id"));
+                        //sKakao.setText(jsonArr.getJSONObject(0).getString("kakao_id"));
                         sIntro.setText(jsonArr.getJSONObject(0).getString("introduce"));
                         sExp.setText(jsonArr.getJSONObject(0).getString("exp"));
                         sSkill.setText(jsonArr.getJSONObject(0).getString("skill"));
+
+                        if(flag != 2)
+                            sKakao.setText(jsonArr.getJSONObject(0).getString("kakao_id"));
 
                         try {
                             thumbnail = URLDecoder.decode(jsonArr.getJSONObject(0).getString("profile_img"), "EUC_KR");

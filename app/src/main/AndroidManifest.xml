@@ -82,7 +82,9 @@
         <activity
             android:name=".ApplierList"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".showProfile"></activity>
+        <activity android:name=".showProfile" />
+        <activity android:name=".showWeeklyActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

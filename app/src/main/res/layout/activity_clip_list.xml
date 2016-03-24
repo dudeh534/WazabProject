@@ -39,6 +39,10 @@
     </LinearLayout>
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,8 +67,6 @@
                     android:textColor="#0057ff"
                     android:textSize="13dp"
                     android:textStyle="bold" />
-
-
             </LinearLayout>
 
             <ListView
@@ -72,6 +74,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f2f3f3"
+                android:orientation="horizontal"
+                android:padding="1dp">
 
+                <com.ourincheon.wazap.NotoTextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="마감된 포스터"
+                    android:textColor="#000"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

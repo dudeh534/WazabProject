@@ -13,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.ourincheon.wazap.Retrofit.ContestData;
@@ -25,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,8 +43,9 @@ public class MasterJoinActivity extends AppCompatActivity {
     public static Context mContext;
     reqContest contest;
     ContestData contestData;
-    TextView jTitle,jCTitle,jButton,jmList,jCate,jApply,jRec,jName,jCover,jMem,jDate,jHost,jLoc,jPos;
+    TextView jTitle,jCTitle,jButton,jmList,jCate,jApply,jRec,jName,jCover,jMem,jDate,jHost,jLoc,jPos,jKakao;
     Button eBtn,jBefore;
+    ImageView jImg;
     String access_token,num;
     AlertDialog.Builder ad,deleteD;
     CharSequence list[] = {"수정하기", "삭제하기","취소"};
@@ -66,6 +71,9 @@ public class MasterJoinActivity extends AppCompatActivity {
         jHost = (TextView) findViewById(R.id.jmHost);
         jLoc = (TextView) findViewById(R.id.jmLoc);
         jPos = (TextView) findViewById(R.id.jmPos);
+        jKakao = (TextView) findViewById(R.id.jmKakao);
+
+        jImg = (ImageView) findViewById(R.id.jmImg);
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         access_token = pref.getString("access_token", "");
@@ -285,27 +293,21 @@ public class MasterJoinActivity extends AppCompatActivity {
                     jHost.setText(contest.getData().getHosts());
                     jLoc.setText(contest.getData().getCont_locate());
                     jPos.setText(contest.getData().getPositions());
+                    jKakao.setText(contest.getData().getKakao_id());
+
+                    try {
+                        String thumb = URLDecoder.decode(contest.getData().getProfile_img(), "EUC_KR");
+                        Glide.with(mContext).load(thumb).error(R.drawable.icon_user).override(50,50).crossFade().into(jImg);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
 
                     String[] parts = contest.getData().getPeriod().split("T");
                     Dday day = new Dday();
                     jDate.setText("D - "+day.dday(parts[0]));
 
                     contestData = contest.getData();
-                    /*
-                    contestData.setTitle(contest.getData().getTitle());
-                    contestData.setCont_title(contest.getData().getCont_title());
-                    contestData.setCategories(contest.getData().getCategories());
-                    contestData.setAppliers(contest.getData().getAppliers());
-                    contestData.setMembers(contest.getData().getMembers());
-                    contestData.setRecruitment(contest.getData().getRecruitment());
-                    contestData.setUsername(contest.getData().getUsername());
-                    contestData.setCover(contest.getData().getCover());
-                    contestData.setHosts(contest.getData().getHosts());
-                    contestData.setContests_id(contest.getData().getContests_id());
-                    contestData.setPeriod(parts[0]);
-                    contestData.setCont_locate(contest.getData().getCont_locate());
-                    contestData.setPositions(contest.getData().getPositions());
-                    */
 
                 } else if (response.isSuccess()) {
                     Log.d("Response Body isNull", response.message());
